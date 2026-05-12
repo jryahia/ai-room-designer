@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}AI Room Designer — 5 Design Proposals{% endblock %}
+
+{% block content %}
+<div class="results-header">
+  <a href="/" class="back-link">← Nuovo Progetto / New Design</a>
+  <div class="results-meta">
+    <span class="meta-pill">{{ room_info.emoji }} {{ room_info.label }} / {{ room_info.it }}</span>
+    <span class="meta-pill">{{ theme_info.emoji }} {{ theme_info.en }} / {{ theme_info.it }}</span>
+    <span class="meta-pill">📐 {{ dimensions.width }}m × {{ dimensions.length }}m × {{ dimensions.height }}m · {{ area }} m²</span>
+  </div>
+  <h1 class="results-title">
+    Le Tue <span class="gradient-text">5 Proposte</span> di Design
+    <span class="results-title-en">Your 5 Design Proposals</span>
+  </h1>
+</div>
+
+{% if not designs %}
+<div class="error-card">
+  <p>⚠️ Impossibile generare i design. Verifica la chiave API OpenAI e riprova.</p>
+  <p><em>Could not generate designs. Please check your OpenAI API key and try again.</em></p>
+  <a href="/" class="btn-primary" style="display:inline-block;margin-top:16px;">← Riprova / Try Again</a>
+</div>
+{% else %}
+
+<div class="designs-grid" id="designs-grid">
+  {% for design in designs %}
+  <div class="design-card" id="card-{{ design.index }}" data-index="{{ design.index }}">
+
+    <!-- Render Image -->
+    <div class="card-image-wrap">
+      {% if design.render_url %}
+      <img
+        src="{{ design.render_url }}"
+        alt="{{ design.name_en }}"
+        class="card-render"
+        loading="lazy"
+        onerror="this.parentElement.innerHTML='<div class=\'no-render\'>🎨 Render non disponibile</div>'"
+      />
+      {% else %}
+      <div class="no-render">
+        <span>🎨</span>
+        <p>Render non disponibile</p>
+        <small>Add OPENAI_API_KEY to enable</small>
+      </div>
+      {% endif %}
+      <div class="card-index-badge">#{{ design.index + 1 }}</div>
+      {% if design.total_cost.budget_tier %}
+      <div class="card-tier-badge tier-{{ design.total_cost.budget_tier | replace('-', '') }}">
+        {{ design.total_cost.budget_tier | replace('-', ' ') | title }}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Card Header -->
+    <div class="card-header">
+      <div class="card-names">
+        <h2 class="card-name-it">{{ design.name_it }}</h2>
+        <h3 class="card-name-en">{{ design.name_en }}</h3>
+        {% if design.tagline_en %}
+        <p class="card-tagline">{{ design.tagline_it }} · <em>{{ design.tagline_en }}</em></p>
+        {% endif %}
+      </div>
+      <div class="card-cost">
+        <span class="cost-range">€{{ design.total_cost.min_eur | int }}–€{{ design.total_cost.max_eur | int }}</span>
+      </div>
+    </div>
+
+    <!-- Color Palette -->
+    <div class="card-palette">
+      {% for color in design.color_palette %}
+      <div class="palette-swatch" style="background-color:{{ color.hex }};" title="{{ color.label_en }} · {{ color.label_it }}">
+        <span class="swatch-tooltip">{{ color.hex }}<br />{{ color.label_en }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Style Tags -->
+    <div class="card-tags">
+      {% for tag in design.style_tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+
+    <!-- Expand Button -->
+    <button class="btn-expand" onclick="toggleDesign({{ design.index }})">
+      <span id="expand-text-{{ design.index }}">Ver Dettagli / View Details ↓</span>
+    </button>
+
+    <!-- Expanded Detail -->
+    <div id="detail-{{ design.index }}" class="card-detail hidden">
+
+      <!-- Rationale -->
+      <div class="detail-section">
+        <h4 class="detail-heading">🧠 Filosofia del Design / Design Rationale</h4>
+        <div class="rationale-tabs">
+          <button class="tab-btn active" onclick="switchLang({{ design.index }}, 'it')">🇮🇹 Italiano</button>
+          <button class="tab-btn" onclick="switchLang({{ design.index }}, 'en')">🇬🇧 English</button>
+        </div>
+        <div id="rationale-it-{{ design.index }}" class="rationale-text">
+          {{ design.rationale_it | replace('\n\n', '</p><p>') | safe }}
+        </div>
+        <div id="rationale-en-{{ design.index }}" class="rationale-text hidden">
+          {{ design.rationale_en | replace('\n\n', '</p><p>') | safe }}
+        </div>
+      </div>
+
+      <!-- Furniture List -->
+      <div class="detail-section">
+        <h4 class="detail-heading">🛋️ Lista Arredamento / Furniture List</h4>
+        <div class="furniture-table-wrap">
+          <table class="furniture-table">
+            <thead>
+              <tr>
+                <th>Prodotto / Item</th>
+                <th>Categoria</th>
+                <th>Brand</th>
+                <th>Costo / Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in design.furniture %}
+              <tr>
+                <td>
+                  <strong>{{ item.name_it }}</strong>
+                  <small>{{ item.name_en }}</small>
+                </td>
+                <td><span class="category-tag">{{ item.category }}</span></td>
+                <td>{{ item.brand_suggestion or '—' }}</td>
+                <td class="cost-cell">€{{ item.estimated_cost_eur | int }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Decor List -->
+      {% if design.decor %}
+      <div class="detail-section">
+        <h4 class="detail-heading">✨ Accessori &amp; Decor</h4>
+        <div class="decor-grid">
+          {% for item in design.decor %}
+          <div class="decor-item">
+            <span class="decor-name">{{ item.name_it }}</span>
+            <small class="decor-name-en">{{ item.name_en }}</small>
+            <span class="decor-cost">€{{ item.estimated_cost_eur | int }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Color Palette Detail -->
+      <div class="detail-section">
+        <h4 class="detail-heading">🎨 Palette Colori / Color Palette</h4>
+        <div class="palette-detail">
+          {% for color in design.color_palette %}
+          <div class="palette-detail-item">
+            <div class="palette-block" style="background:{{ color.hex }}"></div>
+            <div class="palette-info">
+              <span class="palette-hex">{{ color.hex }}</span>
+              <span class="palette-label">{{ color.label_it }}</span>
+              <span class="palette-label-en">{{ color.label_en }}</span>
+              <span class="palette-role">{{ color.role }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Pick Button -->
+      <div class="pick-section">
+        <button
+          class="btn-pick"
+          id="pick-btn-{{ design.index }}"
+          onclick="pickDesign({{ design.index }}, '{{ room_type }}', '{{ theme }}', {{ dimensions.width }}, {{ dimensions.length }}, {{ dimensions.height }}, {{ design | tojson | replace("'", "\\'") | safe }})"
+        >
+          ✅ Scelgo Questo Design · I Choose This Design
+        </button>
+        <p id="pick-thanks-{{ design.index }}" class="pick-thanks hidden">
+          🎉 Scelta salvata! Grazie · Choice saved! Thank you
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Summary bar -->
+<div class="summary-bar">
+  <div class="summary-inner">
+    <p>
+      💡 Clicca su una proposta per vedere tutti i dettagli ·
+      <em>Click any proposal to see full details</em>
+    </p>
+    <p class="summary-range">
+      Budget totale stimato:
+      {% set min_total = designs | map(attribute='total_cost') | map(attribute='min_eur') | min %}
+      {% set max_total = designs | map(attribute='total_cost') | map(attribute='max_eur') | max %}
+      <strong>€{{ min_total | int }} – €{{ max_total | int }}</strong>
+      across all designs
+    </p>
+  </div>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+  // Pass design data to JS
+  window.DESIGN_DATA = {{ designs | tojson | safe if designs else '[]' }};
+  window.ROOM_TYPE   = "{{ room_type }}";
+  window.THEME       = "{{ theme }}";
+  window.DIMENSIONS  = {{ dimensions | tojson | safe }};
+</script>
+{% endblock %}
