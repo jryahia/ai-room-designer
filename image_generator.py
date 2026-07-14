@@ -1,7 +1,11 @@
 import asyncio
 import base64
+import logging
+
 import httpx
 from openai import AsyncOpenAI
+
+logger = logging.getLogger(__name__)
 
 from config import settings
 
@@ -34,7 +38,7 @@ class ImageGenerator:
             )
             return resp.data[0].url
         except Exception as e:
-            print(f"DALL-E error for '{design_name}': {e}")
+            logger.exception("DALL-E error for '%s'", design_name)
             return None
 
     async def generate_all_renders(self, designs: list[dict]) -> list[dict]:

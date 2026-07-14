@@ -1,9 +1,12 @@
+import logging
 import os
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 import uvicorn
+
+logger = logging.getLogger(__name__)
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -19,17 +22,17 @@ async def lifespan(app: FastAPI):
     init_db()
 
     if not settings.openai_api_key:
-        print(
-            "\n⚠️  WARNING: OPENAI_API_KEY is not set. "
-            "Design generation and image rendering will be unavailable.\n"
-            "Set it in .env file: OPENAI_API_KEY=sk-...\n"
+        logger.warning(
+            "OPENAI_API_KEY is not set. "
+            "Design generation and image rendering will be unavailable. "
+            "Set it in .env file: OPENAI_API_KEY=sk-..."
         )
     else:
-        print(f"✅ OpenAI API key loaded (model: {settings.openai_model})")
+        logger.info("OpenAI API key loaded (model: %s)", settings.openai_model)
 
-    print(f"🚀 AI Room Designer running at http://{settings.app_host}:{settings.app_port}")
+    logger.info("AI Room Designer running at http://%s:%s", settings.app_host, settings.app_port)
     yield
-    print("👋 Shutting down AI Room Designer")
+    logger.info("Shutting down AI Room Designer")
 
 
 app = FastAPI(

@@ -1,6 +1,10 @@
 import json
+import logging
 from datetime import datetime
+
 from openai import AsyncOpenAI
+
+logger = logging.getLogger(__name__)
 
 from config import settings
 
@@ -118,7 +122,7 @@ class TrendReportGenerator:
             raw = resp.choices[0].message.content or "{}"
             return json.loads(raw)
         except Exception as e:
-            print(f"Report generation error: {e}")
+            logger.exception("Report generation error")
             return {}
 
     def format_for_business(self, report: dict) -> str:
