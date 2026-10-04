@@ -36,6 +36,7 @@ report_gen = TrendReportGenerator()
 @router.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse(
+        request,
         "index.html",
         {
             "request": request,
@@ -90,6 +91,7 @@ async def create_design(
     theme_info = THEMES.get(effective_theme, {"en": effective_theme, "it": effective_theme, "emoji": "✨"})
 
     return templates.TemplateResponse(
+        request,
         "results.html",
         {
             "request": request,
