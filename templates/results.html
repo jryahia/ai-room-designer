@@ -85,7 +85,7 @@
 
     <!-- Expand Button -->
     <button class="btn-expand" onclick="toggleDesign({{ design.index }})">
-      <span id="expand-text-{{ design.index }}">Ver Dettagli / View Details ↓</span>
+      <span id="expand-text-{{ design.index }}">Vedi Dettagli / View Details</span>
     </button>
 
     <!-- Expanded Detail -->
@@ -175,7 +175,7 @@
         <button
           class="btn-pick"
           id="pick-btn-{{ design.index }}"
-          onclick="pickDesign({{ design.index }}, '{{ room_type }}', '{{ theme }}', {{ dimensions.width }}, {{ dimensions.length }}, {{ dimensions.height }}, {{ design | tojson | replace("'", "\\'") | safe }})"
+          onclick="pickDesign({{ design.index }})"
         >
           <i data-lucide="circle-check" class="icon"></i> Scelgo Questo Design · I Choose This Design
         </button>
