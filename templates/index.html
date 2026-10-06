@@ -27,7 +27,7 @@
       <div id="drop-zone" class="drop-zone">
         <input type="file" id="room-photo" name="room_photo" accept="image/*" class="file-input" />
         <div id="drop-content" class="drop-content">
-          <div class="drop-icon">📸</div>
+          <div class="drop-icon"><i data-lucide="camera" class="icon"></i></div>
           <p class="drop-title">Trascina la foto qui</p>
           <p class="drop-subtitle">Drag &amp; drop your room photo</p>
           <p class="drop-hint">JPG, PNG, WEBP · Max 10 MB</p>
@@ -39,7 +39,7 @@
           <img id="preview-img" src="" alt="Room preview" />
           <div class="preview-overlay">
             <p id="preview-name" class="preview-name"></p>
-            <button type="button" class="btn-remove-photo" onclick="removePhoto()">✕ Rimuovi / Remove</button>
+            <button type="button" class="btn-remove-photo" onclick="removePhoto()"><i data-lucide="x" class="icon"></i> Rimuovi / Remove</button>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
         <label class="room-card">
           <input type="radio" name="room_type" value="{{ key }}" {% if loop.first %}checked{% endif %} />
           <span class="room-card-inner">
-            <span class="room-emoji">{{ info.emoji }}</span>
+            <span class="room-emoji"><i data-lucide="{{ info.icon }}" class="icon"></i></span>
             <span class="room-label-en">{{ info.label }}</span>
             <span class="room-label-it">{{ info.it }}</span>
           </span>
@@ -76,7 +76,7 @@
         <label class="theme-pill">
           <input type="radio" name="theme" value="{{ key }}" {% if loop.first %}checked{% endif %} />
           <span class="theme-pill-inner">
-            <span>{{ info.emoji }}</span>
+            <span><i data-lucide="{{ info.icon }}" class="icon"></i></span>
             <span class="theme-en">{{ info.en }}</span>
             <span class="theme-it">{{ info.it }}</span>
           </span>
@@ -85,7 +85,7 @@
         <label class="theme-pill theme-custom">
           <input type="radio" name="theme" value="custom" id="theme-custom-radio" />
           <span class="theme-pill-inner">
-            <span>✏️</span>
+            <span><i data-lucide="pencil" class="icon"></i></span>
             <span class="theme-en">Custom</span>
             <span class="theme-it">Personalizzato</span>
           </span>
@@ -109,21 +109,21 @@
       </div>
       <div class="dimensions-grid">
         <div class="dim-field">
-          <label for="width_m">📐 Larghezza / Width</label>
+          <label for="width_m"><i data-lucide="move-horizontal" class="icon"></i> Larghezza / Width</label>
           <div class="dim-input-wrap">
             <input type="number" id="width_m" name="width_m" value="4.0" min="1" max="50" step="0.1" class="input-num" required />
             <span class="dim-unit">m</span>
           </div>
         </div>
         <div class="dim-field">
-          <label for="length_m">📏 Lunghezza / Length</label>
+          <label for="length_m"><i data-lucide="ruler" class="icon"></i> Lunghezza / Length</label>
           <div class="dim-input-wrap">
             <input type="number" id="length_m" name="length_m" value="5.0" min="1" max="50" step="0.1" class="input-num" required />
             <span class="dim-unit">m</span>
           </div>
         </div>
         <div class="dim-field">
-          <label for="height_m">🔼 Altezza / Height</label>
+          <label for="height_m"><i data-lucide="move-vertical" class="icon"></i> Altezza / Height</label>
           <div class="dim-input-wrap">
             <input type="number" id="height_m" name="height_m" value="2.7" min="1.5" max="10" step="0.1" class="input-num" required />
             <span class="dim-unit">m</span>
@@ -143,7 +143,7 @@
   <!-- Submit -->
   <div class="submit-area">
     <button type="submit" id="submit-btn" class="btn-primary">
-      <span id="submit-text">✨ Progetta la Mia Stanza · Design My Room</span>
+      <span id="submit-text">Progetta la Mia Stanza · Design My Room</span>
     </button>
   </div>
 </form>
@@ -157,19 +157,19 @@
     <div class="loading-steps">
       <div class="step" id="step-1">
         <span class="step-dot"></span>
-        <span>🔍 Analisi della stanza · Analyzing room</span>
+        <span><i data-lucide="scan-search" class="icon"></i> Analisi della stanza · Analyzing room</span>
       </div>
       <div class="step" id="step-2">
         <span class="step-dot"></span>
-        <span>🌐 Ricerca tendenze · Searching trends</span>
+        <span><i data-lucide="globe" class="icon"></i> Ricerca tendenze · Searching trends</span>
       </div>
       <div class="step" id="step-3">
         <span class="step-dot"></span>
-        <span>🧠 Generazione design · Generating designs</span>
+        <span><i data-lucide="brain" class="icon"></i> Generazione design · Generating designs</span>
       </div>
       <div class="step" id="step-4">
         <span class="step-dot"></span>
-        <span>🎨 Rendering immagini · Rendering images</span>
+        <span><i data-lucide="palette" class="icon"></i> Rendering immagini · Rendering images</span>
       </div>
     </div>
   </div>
@@ -178,27 +178,27 @@
 <!-- Features strip -->
 <section class="features-strip">
   <div class="feature">
-    <span class="feature-icon">🧠</span>
+    <span class="feature-icon"><i data-lucide="brain" class="icon"></i></span>
     <strong>GPT-4o Vision</strong>
     <span>Analizza la tua foto</span>
   </div>
   <div class="feature">
-    <span class="feature-icon">🌐</span>
+    <span class="feature-icon"><i data-lucide="globe" class="icon"></i></span>
     <strong>Trend 2026</strong>
     <span>Ricerca web in tempo reale</span>
   </div>
   <div class="feature">
-    <span class="feature-icon">🖼️</span>
+    <span class="feature-icon"><i data-lucide="image" class="icon"></i></span>
     <strong>DALL-E 3 HD</strong>
     <span>5 render fotorealistici</span>
   </div>
   <div class="feature">
-    <span class="feature-icon">💶</span>
+    <span class="feature-icon"><i data-lucide="euro" class="icon"></i></span>
     <strong>Prezzi Reali</strong>
     <span>Costi stimati in EUR</span>
   </div>
   <div class="feature">
-    <span class="feature-icon">🇮🇹</span>
+    <span class="feature-icon"><i data-lucide="map-pin" class="icon"></i></span>
     <strong>Bilingue</strong>
     <span>Italiano + English</span>
   </div>

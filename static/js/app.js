@@ -85,7 +85,7 @@ function toggleDesign(index) {
 // Pick a design
 async function pickDesign(index) {
     const btn = document.querySelector(`#detail-${index} .btn-success`);
-    if (btn) btn.textContent = '✓ Salvato!';
+    if (btn) btn.textContent = 'Salvato!';
     try {
         await fetch('/api/pick', {
             method: 'POST',

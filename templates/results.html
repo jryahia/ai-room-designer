@@ -6,9 +6,9 @@
 <div class="results-header">
   <a href="/" class="back-link">← Nuovo Progetto / New Design</a>
   <div class="results-meta">
-    <span class="meta-pill">{{ room_info.emoji }} {{ room_info.label }} / {{ room_info.it }}</span>
-    <span class="meta-pill">{{ theme_info.emoji }} {{ theme_info.en }} / {{ theme_info.it }}</span>
-    <span class="meta-pill">📐 {{ dimensions.width }}m × {{ dimensions.length }}m × {{ dimensions.height }}m · {{ area }} m²</span>
+    <span class="meta-pill"><i data-lucide="{{ room_info.icon }}" class="icon"></i> {{ room_info.label }} / {{ room_info.it }}</span>
+    <span class="meta-pill"><i data-lucide="{{ theme_info.icon }}" class="icon"></i> {{ theme_info.en }} / {{ theme_info.it }}</span>
+    <span class="meta-pill"><i data-lucide="ruler" class="icon"></i> {{ dimensions.width }}m × {{ dimensions.length }}m × {{ dimensions.height }}m · {{ area }} m²</span>
   </div>
   <h1 class="results-title">
     Le Tue <span class="gradient-text">5 Proposte</span> di Design
@@ -18,7 +18,7 @@
 
 {% if not designs %}
 <div class="error-card">
-  <p>⚠️ Impossibile generare i design. Verifica la chiave API OpenAI e riprova.</p>
+  <p><i data-lucide="triangle-alert" class="icon"></i> Impossibile generare i design. Verifica la chiave API OpenAI e riprova.</p>
   <p><em>Could not generate designs. Please check your OpenAI API key and try again.</em></p>
   <a href="/" class="btn-primary" style="display:inline-block;margin-top:16px;">← Riprova / Try Again</a>
 </div>
@@ -36,11 +36,11 @@
         alt="{{ design.name_en }}"
         class="card-render"
         loading="lazy"
-        onerror="this.parentElement.innerHTML='<div class=\'no-render\'>🎨 Render non disponibile</div>'"
+        onerror="this.parentElement.innerHTML='<div class=\'no-render\'>Render non disponibile</div>'"
       />
       {% else %}
       <div class="no-render">
-        <span>🎨</span>
+        <span><i data-lucide="palette" class="icon"></i></span>
         <p>Render non disponibile</p>
         <small>Add OPENAI_API_KEY to enable</small>
       </div>
@@ -93,10 +93,10 @@
 
       <!-- Rationale -->
       <div class="detail-section">
-        <h4 class="detail-heading">🧠 Filosofia del Design / Design Rationale</h4>
+        <h4 class="detail-heading"><i data-lucide="brain" class="icon"></i> Filosofia del Design / Design Rationale</h4>
         <div class="rationale-tabs">
-          <button class="tab-btn active" onclick="switchLang({{ design.index }}, 'it')">🇮🇹 Italiano</button>
-          <button class="tab-btn" onclick="switchLang({{ design.index }}, 'en')">🇬🇧 English</button>
+          <button class="tab-btn active" onclick="switchLang({{ design.index }}, 'it')">IT · Italiano</button>
+          <button class="tab-btn" onclick="switchLang({{ design.index }}, 'en')">EN · English</button>
         </div>
         <div id="rationale-it-{{ design.index }}" class="rationale-text">
           {{ design.rationale_it | replace('\n\n', '</p><p>') | safe }}
@@ -108,7 +108,7 @@
 
       <!-- Furniture List -->
       <div class="detail-section">
-        <h4 class="detail-heading">🛋️ Lista Arredamento / Furniture List</h4>
+        <h4 class="detail-heading"><i data-lucide="sofa" class="icon"></i> Lista Arredamento / Furniture List</h4>
         <div class="furniture-table-wrap">
           <table class="furniture-table">
             <thead>
@@ -139,7 +139,7 @@
       <!-- Decor List -->
       {% if design.decor %}
       <div class="detail-section">
-        <h4 class="detail-heading">✨ Accessori &amp; Decor</h4>
+        <h4 class="detail-heading"><i data-lucide="sparkles" class="icon"></i> Accessori &amp; Decor</h4>
         <div class="decor-grid">
           {% for item in design.decor %}
           <div class="decor-item">
@@ -154,7 +154,7 @@
 
       <!-- Color Palette Detail -->
       <div class="detail-section">
-        <h4 class="detail-heading">🎨 Palette Colori / Color Palette</h4>
+        <h4 class="detail-heading"><i data-lucide="palette" class="icon"></i> Palette Colori / Color Palette</h4>
         <div class="palette-detail">
           {% for color in design.color_palette %}
           <div class="palette-detail-item">
@@ -177,10 +177,10 @@
           id="pick-btn-{{ design.index }}"
           onclick="pickDesign({{ design.index }}, '{{ room_type }}', '{{ theme }}', {{ dimensions.width }}, {{ dimensions.length }}, {{ dimensions.height }}, {{ design | tojson | replace("'", "\\'") | safe }})"
         >
-          ✅ Scelgo Questo Design · I Choose This Design
+          <i data-lucide="circle-check" class="icon"></i> Scelgo Questo Design · I Choose This Design
         </button>
         <p id="pick-thanks-{{ design.index }}" class="pick-thanks hidden">
-          🎉 Scelta salvata! Grazie · Choice saved! Thank you
+          <i data-lucide="party-popper" class="icon"></i> Scelta salvata! Grazie · Choice saved! Thank you
         </p>
       </div>
     </div>
@@ -192,7 +192,7 @@
 <div class="summary-bar">
   <div class="summary-inner">
     <p>
-      💡 Clicca su una proposta per vedere tutti i dettagli ·
+      <i data-lucide="lightbulb" class="icon"></i> Clicca su una proposta per vedere tutti i dettagli ·
       <em>Click any proposal to see full details</em>
     </p>
     <p class="summary-range">

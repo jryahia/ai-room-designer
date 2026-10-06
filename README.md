@@ -50,7 +50,7 @@ python main.py
 | Office |  |
 
 ## Themes
-Modern  · Rustic  · Industrial  · Boho  · Classic  · Japanese  · Mediterranean  · Vintage  · Scandinavian  · Minimalist ◻ · Eclectic  · Custom
+Modern · Rustic · Industrial · Boho · Classic · Japanese · Mediterranean · Vintage · Scandinavian · Minimalist · Eclectic · Custom
 
 ## Auto-Evolve
 After 100 user picks, the system generates a design trend report per room category — showing top themes, popular colors, avg costs. This report can be sold to furniture stores and renovation companies.

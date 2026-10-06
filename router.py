@@ -87,8 +87,8 @@ async def create_design(
     if designs:
         designs = await image_gen.generate_all_renders(designs)
 
-    room_info = ROOM_TYPES.get(room_type, {"label": room_type, "it": room_type, "emoji": "🏠"})
-    theme_info = THEMES.get(effective_theme, {"en": effective_theme, "it": effective_theme, "emoji": "✨"})
+    room_info = ROOM_TYPES.get(room_type, {"label": room_type, "it": room_type, "icon": "house"})
+    theme_info = THEMES.get(effective_theme, {"en": effective_theme, "it": effective_theme, "icon": "sparkles"})
 
     return templates.TemplateResponse(
         request,

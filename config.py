@@ -4,25 +4,25 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent
 
 THEMES = {
-    "modern":        {"it": "Moderno",       "en": "Modern",        "emoji": "🏙️"},
-    "rustic":        {"it": "Rustico",        "en": "Rustic",        "emoji": "🏡"},
-    "industrial":    {"it": "Industriale",    "en": "Industrial",    "emoji": "🏭"},
-    "boho":          {"it": "Boho",           "en": "Boho",          "emoji": "🌿"},
-    "classic":       {"it": "Classico",       "en": "Classic",       "emoji": "🏛️"},
-    "japanese":      {"it": "Giapponese",     "en": "Japanese",      "emoji": "🎋"},
-    "mediterranean": {"it": "Mediterraneo",   "en": "Mediterranean", "emoji": "🌊"},
-    "vintage":       {"it": "Vintage",        "en": "Vintage",       "emoji": "📻"},
-    "scandinavian":  {"it": "Scandinavo",     "en": "Scandinavian",  "emoji": "🧊"},
-    "minimalist":    {"it": "Minimalista",    "en": "Minimalist",    "emoji": "◻️"},
-    "eclectic":      {"it": "Eclettico",      "en": "Eclectic",      "emoji": "🎨"},
+    "modern":        {"it": "Moderno",       "en": "Modern",        "icon": "building-2"},
+    "rustic":        {"it": "Rustico",        "en": "Rustic",        "icon": "house"},
+    "industrial":    {"it": "Industriale",    "en": "Industrial",    "icon": "factory"},
+    "boho":          {"it": "Boho",           "en": "Boho",          "icon": "leaf"},
+    "classic":       {"it": "Classico",       "en": "Classic",       "icon": "landmark"},
+    "japanese":      {"it": "Giapponese",     "en": "Japanese",      "icon": "flower-2"},
+    "mediterranean": {"it": "Mediterraneo",   "en": "Mediterranean", "icon": "waves"},
+    "vintage":       {"it": "Vintage",        "en": "Vintage",       "icon": "radio"},
+    "scandinavian":  {"it": "Scandinavo",     "en": "Scandinavian",  "icon": "snowflake"},
+    "minimalist":    {"it": "Minimalista",    "en": "Minimalist",    "icon": "square"},
+    "eclectic":      {"it": "Eclettico",      "en": "Eclectic",      "icon": "palette"},
 }
 
 ROOM_TYPES = {
-    "bathroom":    {"label": "Bathroom",    "it": "Bagno",         "emoji": "🛁"},
-    "bedroom":     {"label": "Bedroom",     "it": "Camera",        "emoji": "🛏️"},
-    "kitchen":     {"label": "Kitchen",     "it": "Cucina",        "emoji": "🍳"},
-    "living_room": {"label": "Living Room", "it": "Soggiorno",     "emoji": "🛋️"},
-    "office":      {"label": "Office",      "it": "Ufficio",       "emoji": "💼"},
+    "bathroom":    {"label": "Bathroom",    "it": "Bagno",         "icon": "bath"},
+    "bedroom":     {"label": "Bedroom",     "it": "Camera",        "icon": "bed-double"},
+    "kitchen":     {"label": "Kitchen",     "it": "Cucina",        "icon": "cooking-pot"},
+    "living_room": {"label": "Living Room", "it": "Soggiorno",     "icon": "sofa"},
+    "office":      {"label": "Office",      "it": "Ufficio",       "icon": "briefcase"},
 }
 
 class Settings:
